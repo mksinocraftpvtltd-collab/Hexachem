@@ -1,27 +1,51 @@
-# HEXACHEM — Website (self-contained / foolproof)
+# HEXACHEM — Website (multi-file repo)
 
-Every page in this folder has its CSS and JavaScript built INSIDE the file — there are
-no separate styles.css / app.js to go missing. Upload and it cannot render unstyled.
-Recommended for hand-upload to GitHub + Cloudflare Pages.
+Static site for HEXACHEM (Specialty Chemical Trading & Distribution), built to the
+**Six & Sun** brand guidelines and the **INDEUR Placement Developer Brief v1.0**.
+No build step — plain HTML/CSS/JS, deploys on Cloudflare Pages via GitHub.
 
-## Deploy
-Upload ALL files in this folder to the **root** of your GitHub repo (index.html at the
-top level), commit, and connect Cloudflare Pages (Framework preset **None**, Build
-command **empty**, Output directory **/**).
+## Edit these files (everything you'll normally change lives here)
 
-## Editing later
-Because the code is baked into each page, a change (e.g. your phone number, CIN/GSTIN,
-or the legal entity name after the MCA rename) must be made in each HTML file — search
-and replace the value across the files, or send the change to your developer to
-regenerate the set. The values to replace before launch:
-- Phone / WhatsApp / email, [city] in Terms, and YOUR-DOMAIN in robots.txt / sitemap.xml.
-- Have Privacy / Terms / Cookies reviewed by your CA / legal adviser.
+1. **config.js** — contact details (`HX`), office locations (`OFFICES`), and the
+   **legal entity** (`LEGAL_ENTITY`). Single source of truth.
+2. **content.js** — `CERTIFICATIONS` and `OPENINGS`. Empty = hidden / "none" state.
 
-## Brand vs legal entity
-HEXACHEM is the brand (everywhere visible). INDEUR INNOVATION SERVICES PRIVATE LIMITED
-is the registered company and appears only in the footer legal block, the Contact
-"Legal Information" block, and the Privacy / Terms / Cookies pages. After the MCA rename
-to HEXACHEM PERFORMANCE PRIVATE LIMITED, replace that name wherever it appears in these
-files (footer, contact, privacy, terms, cookies).
+## Before launch — replace placeholders
+
+- `config.js` → `HX`: real phone, WhatsApp (digits only, country code, no "+"), email.
+- `config.js` → `OFFICES`: real locations.
+- `terms.html` (or pages/terms.html): replace **[city]** in the Governing law clause.
+- `robots.txt` / `sitemap.xml`: replace **YOUR-DOMAIN** with your real domain.
+- Have the Privacy, Terms and Cookies pages reviewed by your CA / legal adviser.
+
+## Brand vs legal entity (per the Developer Brief)
+
+- **HEXACHEM** is the brand — hero, nav, titles, product copy, meta tags. (No INDEUR here.)
+- **INDEUR INNOVATION SERVICES PRIVATE LIMITED** is the registered company — it appears
+  ONLY in the footer legal block, the Contact "Legal Information" block, and the
+  Privacy / Terms / Cookies pages. It is driven entirely by `LEGAL_ENTITY` in config.js.
+
+### After the MCA rename → HEXACHEM PERFORMANCE PRIVATE LIMITED
+Change **one line** in `config.js`:
+```js
+name: "HEXACHEM PERFORMANCE PRIVATE LIMITED",   // was INDEUR...
+```
+That updates the footer, Contact block, Privacy and Terms automatically. CIN does not
+change; GSTIN may need a separate GST update (your CA handles this). Meta tags, OG tags,
+sitemap and domain need no change — they were always HEXACHEM.
+
+Note: this static site does not generate tax invoices, so the GST invoice rule in the
+brief (supplier name = INDEUR) applies to your invoicing system, not this website.
+
+## Deploy (Cloudflare Pages + GitHub)
+
+1. Upload everything in this folder to the **root** of a GitHub repo (so `index.html`
+   is at the top level — not inside a subfolder).
+2. Cloudflare → Workers & Pages → Create → Pages → Connect to Git → select the repo.
+3. Framework preset **None**, Build command **empty**, Output directory **/**. Deploy.
+
+## Files
+index, products, industries, quality, about, careers, contact, privacy, terms, cookies, 404
+· styles.css · app.js · config.js · content.js · favicon.svg · robots.txt · sitemap.xml · _headers
 
 © 2026 HEXACHEM · Six Strong
