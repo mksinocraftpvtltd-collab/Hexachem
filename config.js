@@ -5,9 +5,9 @@
    ============================================================ */
 
 var HX = {
-  display: "+91 00000 00000",        // phone shown to users
-  tel:     "+910000000000",          // tel: link  (no spaces, with country code)
-  wa:      "910000000000",           // WhatsApp: digits only, country code first, NO "+"
+  display: "+91 96324 10710",        // phone shown to users
+  tel:     "+919632410710",          // tel: link  (no spaces, with country code)
+  wa:      "919632410710",           // WhatsApp: digits only, country code first, NO "+"
   email:   "business@hexachem.in"    // enquiries inbox
 };
 
@@ -19,7 +19,7 @@ var HX = {
 var OFFICES = [
   {
     label: "Head office",
-    name:  "City",
+    name:  "Bengaluru",
     lines: ["Street address", "City, State — PIN", "India"]
   }
   // ,{ label:"Warehouse", name:"City Two", lines:["Address line", "City, State — PIN"] }
