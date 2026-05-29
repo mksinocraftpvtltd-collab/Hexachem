@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEXACHEM — Specialty Chemical Trading & Distribution</title>
+<meta property="og:site_name" content="HEXACHEM">
+<meta name="theme-color" content="#14385F">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14385F; --navy-deep:#0E2B48; --navy-mid:#1B466F;
+    --pearl:#FAFAF5; --pearl-2:#F1F0E8;
+    --gold:#E5B23A; --cobalt:#2563EB; --rose:#E5C5BC;
+    --ink:#14385F; --ink-65:rgba(20,56,95,.65); --ink-45:rgba(20,56,95,.45);
+    --line:rgba(20,56,95,.12);
+    --pearl-60:rgba(250,250,245,.6); --pearl-38:rgba(250,250,245,.38); --line-d:rgba(250,250,245,.12);
+    --sans:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--pearl);color:var(--ink);line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--gold);color:var(--navy)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  h1,h2,h3,h4{font-weight:600;line-height:1.1;letter-spacing:-.01em}
+  .label{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase}
+  .six-strong{font-style:italic;font-weight:400;color:var(--gold);letter-spacing:.02em}
+  .field{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .gdot{width:5px;height:5px;border-radius:50%;background:var(--gold);display:inline-block}
+
+  .note{background:var(--navy-deep);color:var(--pearl-60);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:8px 16px}
+  .note b{color:var(--gold);font-weight:500}
+
+  .topbar{background:var(--navy);border-bottom:1px solid var(--line-d)}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:40px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pearl-60)}
+  .topbar .tag{color:var(--gold)}
+  .topbar .links{display:flex;gap:28px}
+  .topbar a:hover{color:var(--gold)}
+  @media(max-width:760px){.topbar .links{display:none}}
+
+  nav{position:sticky;top:0;z-index:60;background:rgba(250,250,245,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:88px}
+  .lockup{height:46px;width:auto;display:block}
+  .navlinks{display:flex;gap:34px;align-items:center}
+  .navlinks a{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--navy);position:relative;padding:4px 0}
+  .navlinks a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:2px;background:var(--gold);transition:width .3s ease}
+  .navlinks a:not(.btn):hover::after,.navlinks a.active::after{width:100%}
+  .btn{font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:13px 24px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:.25s ease;border-radius:2px}
+  .btn .arr{transition:transform .25s ease}
+  .btn:hover .arr{transform:translate(3px,-3px)}
+  .btn-gold{background:var(--gold);color:var(--navy);font-weight:500}
+  .btn-gold:hover{background:#d6a32c;transform:translateY(-2px)}
+  .btn-navy{background:var(--navy);color:var(--pearl)}
+  .btn-navy:hover{background:var(--navy-mid);transform:translateY(-2px)}
+  .btn-line{background:transparent;border-color:var(--line-d);color:var(--pearl)}
+  .btn-line:hover{border-color:var(--gold);color:var(--gold)}
+  .btn-line-d{background:transparent;border-color:var(--line);color:var(--navy)}
+  .btn-line-d:hover{border-color:var(--gold)}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer}
+  .burger span{width:26px;height:2px;background:var(--navy)}
+  @media(max-width:1040px){
+    .navlinks{position:fixed;inset:88px 0 auto 0;background:var(--pearl);flex-direction:column;padding:30px 40px;gap:22px;border-bottom:1px solid var(--line);align-items:flex-start;transform:translateY(-170%);transition:transform .35s ease}
+    .navlinks.open{transform:translateY(0)}
+    .navlinks .btn{align-self:stretch;justify-content:center}
+    .burger{display:flex}
+  }
+
+  .up{opacity:0;transform:translateY(24px);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes up{to{opacity:1;transform:none}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.16s}.d3{animation-delay:.27s}.d4{animation-delay:.38s}.d5{animation-delay:.49s}.d6{animation-delay:.6s}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---- home hero ---- */
+  .hero{position:relative;background:var(--navy);color:var(--pearl);overflow:hidden;padding:96px 0 0}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 28% 30%,rgba(229,178,58,.08),transparent 60%);z-index:1}
+  .hero .wrap{position:relative;z-index:2}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:60px;align-items:end}
+  .eyebrow{color:var(--gold);display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
+  .eyebrow::before{content:"";width:32px;height:1px;background:var(--gold)}
+  h1.hero-title{font-size:clamp(2.7rem,6vw,5.1rem);font-weight:600;line-height:1.04;letter-spacing:-.02em}
+  .hero .lead{font-size:1.18rem;color:var(--pearl-60);max-width:48ch;margin:28px 0;line-height:1.7}
+  .hero .lead b{color:var(--pearl);font-weight:500}
+  .hero-tag{margin:0 0 34px;font-size:1.35rem}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-side{border-left:1px solid var(--line-d);padding-left:34px}
+  .hero-side .label{color:var(--pearl-38);display:block;margin-bottom:14px}
+  .spec{padding:18px 0;border-bottom:1px solid var(--line-d);display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+  .spec:last-child{border-bottom:none}
+  .spec .v{font-family:var(--mono);font-weight:500;font-size:2rem;color:var(--gold);letter-spacing:-.02em}
+  .spec .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pearl-60);text-align:right;line-height:1.5}
+  .hero-strip{margin-top:74px;border-top:1px solid var(--line-d);display:flex;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pearl-60)}
+  .hero-strip span{padding:18px 34px 18px 0;display:flex;align-items:center;gap:11px}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:42px}.hero-side{border-left:none;border-top:1px solid var(--line-d);padding:30px 0 0}}
+
+  /* ---- inner page hero ---- */
+  .phero{background:var(--navy);color:var(--pearl);position:relative;overflow:hidden;padding:64px 0 76px}
+  .phero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 75% 20%,rgba(229,178,58,.08),transparent 60%);z-index:1}
+  .phero .wrap{position:relative;z-index:2}
+  .crumb{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pearl-38);margin-bottom:26px}
+  .crumb a:hover{color:var(--gold)}
+  .crumb .sep{margin:0 10px;color:var(--gold)}
+  .phero h1{font-size:clamp(2.3rem,5vw,3.9rem);font-weight:600;max-width:18ch}
+  .phero .psub{color:var(--pearl-60);font-size:1.16rem;max-width:54ch;margin-top:22px;line-height:1.7}
+  .phero .eyebrow{margin-bottom:24px}
+
+  .trust{background:var(--pearl-2);border-bottom:1px solid var(--line)}
+  .trust .wrap{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;padding:26px 40px}
+  .trust .label{color:var(--ink-45)}
+  .trust .certs{display:flex;gap:12px;flex-wrap:wrap}
+  .cert{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--navy);display:flex;align-items:center;gap:9px;padding:8px 16px;border:1px solid var(--line);border-radius:2px}
+
+  .sec{padding:104px 0;position:relative}
+  .sec.tight{padding:80px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:44px;margin-bottom:58px;flex-wrap:wrap}
+  .sec-head .label{color:var(--gold);margin-bottom:18px;display:block}
+  .sec-head h2{font-size:clamp(1.9rem,3.8vw,3rem);max-width:16ch;font-weight:600}
+  .sec-head .sh-r{color:var(--ink-65);max-width:38ch;font-size:1.04rem;padding-bottom:4px}
+
+  .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .cap{background:var(--pearl);padding:44px;position:relative;transition:background .3s ease;overflow:hidden}
+  .cap:hover{background:var(--pearl-2)}
+  .cap .cnum{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--cobalt)}
+  .cap h3{font-size:1.45rem;margin:20px 0 12px;font-weight:600}
+  .cap p{color:var(--ink-65);font-size:1.02rem;line-height:1.7}
+  .cap .const{position:absolute;right:30px;top:38px;width:46px;height:52px;opacity:.16;transition:.4s ease}
+  .cap:hover .const{opacity:.34;transform:translateY(-3px)}
+  @media(max-width:740px){.cap-grid{grid-template-columns:1fr}}
+
+  .catalog{background:#fff}
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .pcard{border:1px solid var(--line);padding:30px;background:var(--pearl);transition:.3s ease;cursor:pointer}
+  .pcard:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 20px 44px -24px rgba(20,56,95,.45)}
+  .pcard .code{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--cobalt);display:block;margin-bottom:20px}
+  .pcard h3{font-size:1.28rem;margin-bottom:8px;font-weight:600}
+  .pcard p{font-size:.94rem;color:var(--ink-65);margin-bottom:22px;line-height:1.65}
+  .pcard .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+  .pcard .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--ink-65);border:1px solid var(--line);padding:4px 9px;border-radius:2px}
+  .pcard .more{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);display:flex;align-items:center;gap:8px}
+  .pcard:hover .more{color:var(--gold)}
+  .pcard .more .arr{transition:transform .25s ease}
+  .pcard:hover .more .arr{transform:translate(3px,-3px)}
+  @media(max-width:860px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:540px){.cat-grid{grid-template-columns:1fr}}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+  .chip{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border:1px solid var(--line);border-radius:2px;cursor:pointer;transition:.2s ease;color:var(--navy)}
+  .chip:hover{border-color:var(--gold)}
+  .chip.on{background:var(--navy);color:var(--pearl);border-color:var(--navy)}
+
+  .ind{background:var(--navy);color:var(--pearl);position:relative;overflow:hidden}
+  .ind .sec-head h2{color:var(--pearl)}
+  .ind .sec-head .sh-r{color:var(--pearl-60)}
+  .ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-d);border:1px solid var(--line-d);position:relative;z-index:2}
+  .icell{background:var(--navy);padding:36px 32px;transition:background .3s ease;min-height:172px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px}
+  .icell:hover{background:var(--navy-deep)}
+  .icell .ic{width:30px;height:30px;color:var(--gold);margin-bottom:6px}
+  .icell h3{font-size:1.18rem;font-weight:600}
+  .icell p{font-size:.88rem;color:var(--pearl-60);line-height:1.6}
+  @media(max-width:740px){.ind-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.ind-grid{grid-template-columns:1fr}}
+
+  /* industries detailed (light) */
+  .indrow{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .indcard{background:var(--pearl);padding:42px;transition:background .3s ease}
+  .indcard:hover{background:var(--pearl-2)}
+  .indcard .ic{width:34px;height:34px;color:var(--gold);margin-bottom:18px}
+  .indcard h3{font-size:1.5rem;margin-bottom:12px;font-weight:600}
+  .indcard p{color:var(--ink-65);font-size:1rem;line-height:1.7;margin-bottom:18px}
+  .indcard .sup{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--cobalt);text-transform:uppercase;line-height:2}
+  @media(max-width:740px){.indrow{grid-template-columns:1fr}}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:66px;align-items:center}
+  .q-list{margin-top:30px}
+  .q-item{display:flex;gap:20px;padding:24px 0;border-top:1px solid var(--line)}
+  .q-item:last-child{border-bottom:1px solid var(--line)}
+  .q-item .qn{font-family:var(--mono);color:var(--cobalt);font-size:.74rem;letter-spacing:.08em;padding-top:5px}
+  .q-item h4{font-size:1.16rem;margin-bottom:6px;font-weight:600}
+  .q-item p{color:var(--ink-65);font-size:.97rem;line-height:1.65}
+  .q-visual{background:var(--navy);border-radius:4px;padding:52px;position:relative;overflow:hidden;color:var(--pearl)}
+  .q-visual .vlabel{color:var(--gold)}
+  .q-visual .big{font-weight:600;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1.05;margin-top:18px}
+  .q-visual .big em{font-style:italic;font-weight:400;color:var(--gold)}
+  .q-visual .sub{color:var(--pearl-60);margin-top:16px;font-size:1.02rem;max-width:32ch;line-height:1.7}
+  .q-visual .mini{display:flex;gap:38px;margin-top:42px;flex-wrap:wrap;position:relative;z-index:2}
+  .q-visual .mini .n{font-family:var(--mono);font-weight:500;font-size:1.7rem;color:var(--gold)}
+  .q-visual .mini .l{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pearl-60);margin-top:5px}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:46px}}
+
+  /* process steps */
+  .proc{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .pstep{background:var(--pearl);padding:38px 30px;position:relative}
+  .pstep .pn{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--cobalt);margin-bottom:18px}
+  .pstep .pmark{margin:0 0 16px}
+  .pstep h4{font-size:1.18rem;margin-bottom:10px;font-weight:600}
+  .pstep p{color:var(--ink-65);font-size:.93rem;line-height:1.65}
+  @media(max-width:860px){.proc{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.proc{grid-template-columns:1fr}}
+
+  /* values grid */
+  .values{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .val{background:var(--pearl);padding:40px}
+  .val .vk{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--gold);margin-bottom:16px}
+  .val h3{font-size:1.32rem;margin-bottom:10px;font-weight:600}
+  .val p{color:var(--ink-65);font-size:.97rem;line-height:1.7}
+  @media(max-width:860px){.values{grid-template-columns:1fr}}
+
+  /* stat band */
+  .statband{background:var(--navy);color:var(--pearl);position:relative;overflow:hidden}
+  .statband .wrap{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;padding:72px 40px}
+  .statband .st .n{font-family:var(--mono);font-weight:500;font-size:2.6rem;color:var(--gold);letter-spacing:-.02em}
+  .statband .st .l{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pearl-60);margin-top:8px}
+  @media(max-width:740px){.statband .wrap{grid-template-columns:repeat(2,1fr);gap:34px}}
+
+  /* careers */
+  .careers{background:linear-gradient(180deg,var(--pearl) 0%,rgba(229,197,188,.22) 100%)}
+  .careers h2{font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:600}
+  .careers .big{font-size:1.12rem;color:var(--ink-65);margin:22px 0 30px;max-width:42ch;line-height:1.7}
+  .roles{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .role{background:var(--pearl);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.25s ease;cursor:pointer}
+  .role:hover{background:#fff;padding-left:34px}
+  .role .rt{font-size:1.08rem;font-weight:600}
+  .role .rl{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-45);margin-top:3px}
+  .role .arr{color:var(--gold);font-size:1.1rem}
+
+  .cta{background:var(--navy);color:var(--pearl);position:relative;overflow:hidden}
+  .cta::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 35%,rgba(229,178,58,.1),transparent 62%);z-index:1}
+  .cta .wrap{position:relative;z-index:2;text-align:center;padding:112px 40px}
+  .cta .label{color:var(--gold)}
+  .cta h2{font-size:clamp(2.1rem,5vw,3.8rem);margin:22px auto 18px;max-width:18ch;font-weight:600}
+  .cta h2 em{font-style:italic;font-weight:400;color:var(--gold)}
+  .cta p{color:var(--pearl-60);font-size:1.12rem;max-width:48ch;margin:0 auto 38px;line-height:1.7}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* forms */
+  .form-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:60px;align-items:start}
+  .qform{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .qform .full{grid-column:1/-1}
+  .fld label{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-65);margin-bottom:9px}
+  .fld input,.fld select,.fld textarea{width:100%;background:var(--pearl);border:1px solid var(--line);border-radius:2px;padding:13px 15px;font-family:var(--sans);font-size:.97rem;color:var(--navy);transition:.2s ease}
+  .fld textarea{min-height:120px;resize:vertical}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold);background:#fff}
+  .fld input::placeholder,.fld textarea::placeholder{color:var(--ink-45)}
+  .form-note{font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:var(--ink-45);margin-top:18px;line-height:1.7}
+  .infoblock{background:var(--navy);color:var(--pearl);border-radius:4px;padding:42px;position:relative;overflow:hidden}
+  .infoblock .ib{position:relative;z-index:2}
+  .infoblock h3{color:var(--pearl);font-size:1.3rem;margin-bottom:6px;font-weight:600}
+  .infoblock .ig{margin-top:28px}
+  .infoblock .ig .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+  .infoblock .ig .v{color:var(--pearl);font-size:1rem;margin-bottom:22px;line-height:1.6}
+  .infoblock .ig .v a:hover{color:var(--gold)}
+  @media(max-width:860px){.form-grid{grid-template-columns:1fr;gap:42px}.qform{grid-template-columns:1fr}}
+
+  /* offices */
+  .offices{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .office{background:var(--pearl);padding:34px}
+  .office .oc{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .office h4{font-size:1.18rem;margin-bottom:10px;font-weight:600}
+  .office p{color:var(--ink-65);font-size:.93rem;line-height:1.7}
+  @media(max-width:740px){.offices{grid-template-columns:1fr}}
+
+  /* prose */
+  .prose{max-width:62ch}
+  .prose p{color:var(--ink-65);font-size:1.08rem;line-height:1.8;margin-bottom:22px}
+  .prose p b{color:var(--navy);font-weight:600}
+
+  footer{background:var(--navy-deep);color:var(--pearl-60);padding:78px 0 32px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:42px;margin-bottom:56px}
+  .foot-brand .flock{height:30px;margin-bottom:20px}
+  .foot-brand p{font-size:.94rem;max-width:32ch;line-height:1.7}
+  .foot-brand .ss{margin-top:14px;font-size:1.05rem}
+  .fcol h5{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .fcol a{display:block;padding:7px 0;font-size:.93rem;color:var(--pearl-60);transition:color .2s}
+  .fcol a:hover{color:var(--pearl)}
+  .foot-bot{border-top:1px solid var(--line-d);padding-top:26px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pearl-38)}
+  @media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media(max-width:460px){.foot-grid{grid-template-columns:1fr}}
+
+  /* ===== live contact: floating button + menu ===== */
+  .fab-wrap{position:fixed;right:24px;bottom:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+  .fab-menu{display:flex;flex-direction:column;align-items:flex-end;gap:12px;opacity:0;transform:translateY(14px) scale(.96);pointer-events:none;transition:.28s cubic-bezier(.2,.8,.2,1)}
+  .fab-wrap.open .fab-menu{opacity:1;transform:none;pointer-events:auto}
+  .fab-item{display:flex;align-items:center;gap:12px}
+  .fab-item .lbl{background:var(--navy);color:var(--pearl);font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;border-radius:3px;box-shadow:0 6px 20px -8px rgba(14,43,72,.5);white-space:nowrap}
+  .fab-item .ico{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--pearl);border:1px solid var(--line);box-shadow:0 8px 22px -8px rgba(14,43,72,.45);transition:.2s ease;flex-shrink:0;color:var(--navy)}
+  .fab-item:hover .ico{border-color:var(--gold);transform:translateY(-2px)}
+  .fab-item.wa .ico{background:var(--navy);color:var(--pearl);border-color:var(--gold)}
+  .fab-item .ico svg{width:22px;height:22px}
+  .fab{position:relative;width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);background:var(--navy);color:var(--pearl);display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 30px -8px rgba(14,43,72,.55);transition:.25s ease}
+  .fab:hover{transform:translateY(-2px)}
+  .fab svg{width:26px;height:26px}
+  .fab-pulse{position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--gold);animation:pulse 2.6s ease-out infinite;pointer-events:none}
+  @keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.65);opacity:0}}
+  @media(max-width:600px){.fab-wrap{right:16px;bottom:16px}}
+
+  /* ===== modal ===== */
+  .moverlay{position:fixed;inset:0;z-index:210;background:rgba(14,43,72,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:24px}
+  .moverlay.open{display:flex}
+  .modal{background:var(--pearl);border-radius:6px;max-width:470px;width:100%;padding:40px;position:relative;box-shadow:0 30px 80px -20px rgba(14,43,72,.6);animation:up .4s ease}
+  .modal .mclose{position:absolute;top:16px;right:18px;background:none;border:none;cursor:pointer;color:var(--ink-45);font-size:1.5rem;line-height:1}
+  .modal .mclose:hover{color:var(--navy)}
+  .modal .label{color:var(--gold);display:block;margin-bottom:14px}
+  .modal h3{font-size:1.5rem;font-weight:600;margin-bottom:6px}
+  .modal .msub{color:var(--ink-65);font-size:.95rem;margin-bottom:24px;line-height:1.6}
+  .modal .fld{margin-bottom:15px}
+  .send-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+  .send-row .btn{flex:1;justify-content:center;min-width:150px}
+  .btn-wa{background:var(--navy);color:var(--pearl);border:1px solid var(--gold)}
+  .btn-wa:hover{background:var(--navy-mid);transform:translateY(-2px)}
+  .alt-send{font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:var(--ink-45);margin-top:16px;text-align:center}
+  .alt-send a{color:var(--cobalt);border-bottom:1px solid var(--line)}
+  .alt-send a:hover{color:var(--gold)}
+
+  /* ===== utility ===== */
+  [hidden]{display:none !important}
+
+  /* ===== industries: editorial sector rows (distinct from product cards) ===== */
+  .sectors{border-top:1px solid var(--line)}
+  .sector{display:grid;grid-template-columns:54px 1fr 290px;gap:30px;padding:38px 0;border-bottom:1px solid var(--line);align-items:start;transition:background .25s ease}
+  .sector:hover{background:var(--pearl-2)}
+  .sector .si{width:40px;height:40px;color:var(--gold)}
+  .sector .sbody h3{font-size:1.55rem;font-weight:600;margin-bottom:10px}
+  .sector .out{color:var(--ink-65);font-size:1.06rem;line-height:1.7;max-width:48ch}
+  .sector .sup{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--cobalt);line-height:1.95;padding-top:6px}
+  .sector .sup b{color:var(--ink-45);font-weight:500;display:block;letter-spacing:.14em;text-transform:uppercase;font-size:.64rem;margin-bottom:6px}
+  @media(max-width:820px){.sector{grid-template-columns:40px 1fr;gap:20px}.sector .sup{grid-column:1/-1;padding-left:60px}}
+  @media(max-width:520px){.sector .sup{padding-left:0}}
+
+  /* ===== home industries: 2-col sector list on navy ===== */
+  .indlist{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-d);border:1px solid var(--line-d);position:relative;z-index:2}
+  .iitem{background:var(--navy);padding:34px 32px;transition:background .3s ease}
+  .iitem:hover{background:var(--navy-deep)}
+  .iitem .ic{width:28px;height:28px;color:var(--gold);margin-bottom:16px}
+  .iitem h3{font-size:1.22rem;font-weight:600;margin-bottom:9px}
+  .iitem p{color:var(--pearl-60);font-size:.94rem;line-height:1.65}
+  @media(max-width:680px){.indlist{grid-template-columns:1fr}}
+
+  /* ===== empty openings state ===== */
+  .empty-roles{border:1px dashed var(--line);border-radius:4px;padding:38px;text-align:center}
+  .empty-roles h4{font-size:1.2rem;font-weight:600;margin-bottom:8px;color:var(--navy)}
+  .empty-roles p{color:var(--ink-65);font-size:1rem;max-width:42ch;margin:0 auto}
+
+  /* ===== hero — creative layer ===== */
+  @keyframes twk{0%,100%{opacity:.16}50%{opacity:.9}}
+  .hero-stage{position:relative;width:min(340px,30vw);aspect-ratio:1;margin:0 auto;z-index:1;pointer-events:none;
+    transform:translate(var(--px,0px),var(--py,0px));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .hero-mark{position:absolute;inset:0;width:100%;height:100%;animation:breathe 6s ease-in-out infinite}
+  .hero-mark circle{transform-box:fill-box;transform-origin:center;opacity:0;
+    animation:dotIn .6s cubic-bezier(.2,.9,.3,1.4) calc(.2s + var(--i)*.12s) both,
+              dotPulse 6s ease-in-out calc(.9s + var(--i)*.12s) infinite}
+  @keyframes dotIn{from{opacity:0;transform:scale(.12)}to{opacity:.92;transform:scale(1)}}
+  @keyframes dotPulse{0%,100%{opacity:.92}50%{opacity:.34}}
+  @keyframes breathe{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.045) rotate(2.2deg)}}
+  .pulse-ring{position:absolute;top:50%;left:50%;width:46%;height:46%;margin:-23% 0 0 -23%;border:1.5px solid var(--gold);border-radius:50%;opacity:0;animation:ping 6s ease-out infinite}
+  .pulse-ring.r2{animation-delay:3s}
+  @keyframes ping{0%{transform:scale(.45);opacity:.45}70%{opacity:0}100%{transform:scale(1.5);opacity:0}}
+  .hero .field{animation:drift 36s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translate(0,0)}to{transform:translate(-28px,-20px)}}
+  @media(max-width:980px){.hero-stage{width:min(300px,40vw)}}
+  @media(max-width:680px){.hero-stage{display:none}}
+  @media(prefers-reduced-motion:reduce){
+    .hero-mark,.hero-mark circle,.pulse-ring,.hero .field,.accent-line,.up,.reveal{animation:none !important}
+    .up,.reveal{opacity:1 !important;transform:none !important}
+    .hero-mark circle{opacity:.78 !important}
+    .accent-line{width:88px !important}
+  }
+
+  .hero .lead{position:relative}
+  .accent-line{height:2px;width:0;background:var(--gold);margin:30px 0 0;animation:grow 1s cubic-bezier(.2,.8,.2,1) .6s forwards}
+  @keyframes grow{to{width:88px}}
+
+  .ticker{margin-top:60px;border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);overflow:hidden;position:relative}
+  .ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+  .ticker::before{left:0;background:linear-gradient(90deg,var(--navy),transparent)}
+  .ticker::after{right:0;background:linear-gradient(270deg,var(--navy),transparent)}
+  .ticker-track{display:flex;align-items:center;white-space:nowrap;width:max-content;animation:tick 30s linear infinite;padding:17px 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--pearl-60)}
+  .ticker-track i{font-style:normal;padding:0 30px;display:inline-flex;align-items:center}
+  .ticker-track .sep{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  /* ===== capability pipeline ===== */
+  .cap-grid{grid-template-columns:repeat(4,1fr)}
+  .cap{padding:40px 30px}
+  .cap::before{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .cap:hover::before{transform:scaleX(1)}
+  .cap .capi{display:inline-grid;place-items:center;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;color:var(--gold);margin-bottom:22px;transition:.3s ease;background:var(--pearl)}
+  .cap:hover .capi{border-color:var(--gold);background:var(--navy);transform:translateY(-3px)}
+  .cap .capi svg{width:22px;height:22px}
+  .cap .cnum{color:var(--gold)}
+  .cap h3{font-size:1.22rem;margin:13px 0 10px}
+  .cap p{font-size:.95rem;line-height:1.65}
+  .cap .const{width:40px;height:40px;top:36px;right:26px}
+  .cap:hover .const circle{animation:twk 1.9s ease-in-out infinite}
+  .cap .const circle:nth-of-type(2){animation-delay:.18s}
+  .cap .const circle:nth-of-type(3){animation-delay:.36s}
+  .cap .const circle:nth-of-type(4){animation-delay:.54s}
+  .cap .const circle:nth-of-type(5){animation-delay:.72s}
+  .cap .const circle:nth-of-type(6){animation-delay:.9s}
+  @media(max-width:1000px){.cap-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.cap-grid{grid-template-columns:1fr}}
+
+  /* ===== plates: icon + label in sync ===== */
+  .cap-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .cap-head .capi{margin-bottom:0;flex-shrink:0}
+  .cap-head .cnum{margin:0;line-height:1.2}
+  .cap .const{top:auto;bottom:24px;right:24px}
+
+  /* ===== hero composition: golden ratio (phi) ===== */
+  .hero-grid{grid-template-columns:1.618fr 1fr;gap:52px;align-items:center}
+  .hero-visual{display:flex;align-items:center;justify-content:center;min-height:340px}
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:58px;border-top:1px solid var(--line-d);padding-top:36px}
+  .hstat .v{font-family:var(--mono);font-weight:500;font-size:1.95rem;color:var(--gold);letter-spacing:-.02em;display:block}
+  .hstat .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pearl-60);margin-top:9px;display:block;line-height:1.5}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:28px}.hero-visual{display:none}.hero-stats{grid-template-columns:repeat(2,1fr);gap:26px;margin-top:44px}}
+
+  /* ===== product catalog ===== */
+  .pcat{font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+  .pitem.hide{display:none}
+  .cat-count{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--ink-45);margin:0 0 28px}
+  .pcard .tags .tag{color:var(--ink-65)}
+
+  /* ===== footer legal block (INDEUR disclosure) ===== */
+  .footer-legal{border-top:1px solid rgba(255,255,255,0.12);padding-top:24px}
+  .footer-legal p{font-size:.75rem;line-height:1.5;margin-bottom:8px}
+  .footer-legal-primary{color:rgba(250,250,245,0.7)}
+  .footer-legal-meta{font-family:var(--mono);font-size:.72rem;color:rgba(250,250,245,0.55)}
+  .footer-legal-copy{color:rgba(250,250,245,0.55)}
+  .footer-legal a{color:inherit;text-decoration:none}
+  .footer-legal a:hover{text-decoration:underline;color:var(--pearl)}
+
+  /* ===== legal pages (privacy / terms / cookies) ===== */
+  .legal-page{padding:64px 0 96px;position:relative}
+  .legal-page .wrap{max-width:820px}
+  .legal-page .updated{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-45);margin-bottom:18px}
+  .legal-page h2{font-size:1.45rem;font-weight:600;margin:42px 0 14px;color:var(--navy)}
+  .legal-page p{color:var(--ink-65);font-size:1.02rem;line-height:1.8;margin-bottom:18px}
+  .legal-page ul{margin:0 0 18px 22px}
+  .legal-page li{color:var(--ink-65);font-size:1.02rem;line-height:1.7;margin-bottom:8px}
+  .legal-page a{color:var(--cobalt);text-decoration:underline}
+  .legal-page strong{color:var(--navy);font-weight:600}
+  .legal-card{background:var(--pearl-2);border:1px solid var(--line);border-radius:4px;padding:22px 26px;margin:6px 0 26px}
+  .legal-card p{margin:0;line-height:1.8}
+
+  /* ===== contact legal-info block ===== */
+  .legal-info{border-top:1px solid var(--line);margin-top:46px;padding-top:36px}
+  .legal-info h3{font-size:1.15rem;font-weight:600;margin-bottom:20px}
+  .legal-info dl{display:grid;grid-template-columns:210px 1fr;gap:12px 26px}
+  .legal-info dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding-top:3px}
+  .legal-info dd{color:var(--ink-65);font-size:.96rem;line-height:1.5}
+  @media(max-width:600px){.legal-info dl{grid-template-columns:1fr;gap:3px 0}.legal-info dt{margin-top:14px}}
+
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="constel" width="190" height="190" patternUnits="userSpaceOnUse">
+    <circle cx="95" cy="68" r="2.1" fill="#E5B23A"/>
+    <circle cx="118.36" cy="81.5" r="2.1" fill="#E5B23A"/>
+    <circle cx="118.36" cy="108.5" r="2.1" fill="#E5B23A"/>
+    <circle cx="95" cy="122" r="2.1" fill="#E5B23A"/>
+    <circle cx="71.64" cy="108.5" r="2.1" fill="#E5B23A"/>
+    <circle cx="71.64" cy="81.5" r="2.1" fill="#E5B23A"/>
+  </pattern>
+</defs></svg>
+
+<div class="topbar"><div class="wrap">
+  <span class="tag">Six Strong — Specialty Chemical Trading &amp; Distribution</span>
+  <div class="links">
+    <a href="quality.html">Safety Data Sheets</a>
+    <a href="contact.html">Customer Portal</a>
+    <a id="barTel" href="contact.html"><span id="barPhone">+91 00000 00000</span></a>
+  </div>
+</div></div>
+
+<nav><div class="wrap">
+  <a href="index.html" aria-label="HEXACHEM home">
+    <svg class="lockup" viewBox="0 0 391 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="39.8026" cy="28" r="2.75" fill="#14385F"/>
+      <circle cx="58.8551" cy="39" r="2.75" fill="#14385F"/>
+      <circle cx="58.8551" cy="61" r="2.75" fill="#14385F"/>
+      <circle cx="39.8026" cy="72" r="2.75" fill="#14385F"/>
+      <circle cx="20.75" cy="61" r="2.75" fill="#14385F"/>
+      <circle cx="20.75" cy="39" r="2.75" fill="#14385F"/>
+      <text x="80.66" y="50" font-family="Inter,sans-serif" font-weight="500" font-size="33" letter-spacing="13.2" fill="#14385F" dominant-baseline="middle">HEXACHEM</text>
+    </svg>
+  </a>
+  <div class="navlinks" id="navlinks">
+    <a href="products.html">Products</a>
+    <a href="industries.html">Industries</a>
+    <a href="quality.html">Quality</a>
+    <a href="about.html">About</a>
+    <a href="careers.html">Careers</a>
+    <a class="btn btn-gold" href="contact.html">Request a quote <span class="arr">↗</span></a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+
+<header class="hero">
+  <svg class="field" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#constel)" opacity=".22"/></svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow label up d1">Reliable · Verifiable · Traceable</span>
+        <h1 class="hero-title up d2">Specialty chemistry,<br>sourced to perform.</h1>
+        <p class="hero-tag up d3"><span class="six-strong">Six Strong</span></p>
+        <p class="lead up d4"><b>HEXACHEM</b> sources and distributes specialty chemicals for construction, coatings, waterproofing and industrial performance — every consignment verified at origin and fully traceable to your site.</p>
+        <div class="accent-line"></div>
+        <div class="hero-cta up d5">
+          <a class="btn btn-gold" href="contact.html">Request a quote <span class="arr">↗</span></a>
+          <a class="btn btn-line" href="products.html">Browse the catalog</a>
+        </div>
+      </div>
+      <div class="hero-visual up d4">
+        <div class="hero-stage">
+          <span class="pulse-ring"></span><span class="pulse-ring r2"></span>
+          <svg class="hero-mark" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle style="--i:0" cx="60" cy="34" r="4.6" fill="#E5B23A"/>
+            <circle style="--i:1" cx="82.5167" cy="47" r="4.6" fill="#E5B23A"/>
+            <circle style="--i:2" cx="82.5167" cy="73" r="4.6" fill="#E5B23A"/>
+            <circle style="--i:3" cx="60" cy="86" r="4.6" fill="#E5B23A"/>
+            <circle style="--i:4" cx="37.4833" cy="73" r="4.6" fill="#E5B23A"/>
+            <circle style="--i:5" cx="37.4833" cy="47" r="4.6" fill="#E5B23A"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats up d6">
+      <div class="hstat"><span class="v">3,200+</span><span class="k">Grades in catalog</span></div>
+      <div class="hstat"><span class="v">48</span><span class="k">Countries sourced from</span></div>
+      <div class="hstat"><span class="v">99.4%</span><span class="k">On-time delivery</span></div>
+      <div class="hstat"><span class="v">100%</span><span class="k">Lots with certificate</span></div>
+    </div>
+    <div class="ticker up d6"><div class="ticker-track"><i>Construction Chemicals</i><span class="sep"></span><i>Coatings &amp; Paints</i><span class="sep"></span><i>Waterproofing</i><span class="sep"></span><i>Sealants &amp; Adhesives</i><span class="sep"></span><i>Surfactants &amp; Additives</i><span class="sep"></span><i>Industrial Performance</i><span class="sep"></span><i>Construction Chemicals</i><span class="sep"></span><i>Coatings &amp; Paints</i><span class="sep"></span><i>Waterproofing</i><span class="sep"></span><i>Sealants &amp; Adhesives</i><span class="sep"></span><i>Surfactants &amp; Additives</i><span class="sep"></span><i>Industrial Performance</i><span class="sep"></span></div></div>
+  </div>
+</header>
+
+<div class="trust" id="certBar" hidden><div class="wrap">
+  <span class="label">Certified &amp; audited to global standards</span>
+  <div class="certs" id="certList"></div>
+</div></div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="label">What we do</span><h2>More than a link in your supply chain</h2></div>
+      <p class="sh-r">From origin sourcing and verification to repackaging and traceable delivery, we manage the parts of specialty supply that slow projects down.</p>
+    </div>
+    <div class="cap-grid reveal">
+      <a class="cap" href="quality.html"><div class="cap-head"><span class="capi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg></span><span class="cnum">SOURCING</span></div><h3>Global sourcing network</h3><p>Direct relationships with vetted manufacturers across four continents — dependable availability and competitive pricing, even on hard-to-find grades.</p><svg class="const" viewBox="0 0 120 120"><circle cx="60" cy="34" r="4" fill="#14385F"/><circle cx="82.5167" cy="47" r="4" fill="#14385F"/><circle cx="82.5167" cy="73" r="4" fill="#14385F"/><circle cx="60" cy="86" r="4" fill="#14385F"/><circle cx="37.4833" cy="73" r="4" fill="#14385F"/><circle cx="37.4833" cy="47" r="4" fill="#14385F"/></svg></a>
+      <a class="cap" href="quality.html"><div class="cap-head"><span class="capi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4.5h6V7H9zM7 5.5H6.5A1.5 1.5 0 0 0 5 7v12.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V7a1.5 1.5 0 0 0-1.5-1.5H17"/><path d="m9 13 2 2 4-4"/></svg></span><span class="cnum">VERIFICATION</span></div><h3>Tested &amp; documented</h3><p>Every lot verified against spec with a documented certificate of analysis — what arrives is exactly what your process was validated for.</p><svg class="const" viewBox="0 0 120 120"><circle cx="60" cy="34" r="4" fill="#14385F"/><circle cx="82.5167" cy="47" r="4" fill="#14385F"/><circle cx="82.5167" cy="73" r="4" fill="#14385F"/><circle cx="60" cy="86" r="4" fill="#14385F"/><circle cx="37.4833" cy="73" r="4" fill="#14385F"/><circle cx="37.4833" cy="47" r="4" fill="#14385F"/></svg></a>
+      <a class="cap" href="products.html"><div class="cap-head"><span class="capi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5.2" rx="6" ry="2.2"/><path d="M6 5.2v13.6c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2V5.2"/><path d="M6 10.5c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2M6 15c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2"/></svg></span><span class="cnum">HANDLING</span></div><h3>Blending &amp; repackaging</h3><p>Custom packaging from drums to IBCs and bulk, plus toll blending to your formulation — handled in compliant, climate-controlled facilities.</p><svg class="const" viewBox="0 0 120 120"><circle cx="60" cy="34" r="4" fill="#14385F"/><circle cx="82.5167" cy="47" r="4" fill="#14385F"/><circle cx="82.5167" cy="73" r="4" fill="#14385F"/><circle cx="60" cy="86" r="4" fill="#14385F"/><circle cx="37.4833" cy="73" r="4" fill="#14385F"/><circle cx="37.4833" cy="47" r="4" fill="#14385F"/></svg></a>
+      <a class="cap" href="quality.html"><div class="cap-head"><span class="capi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6.5h10.5v9.5H3zM13.5 9.5H17l3.5 3.5V16h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></span><span class="cnum">LOGISTICS</span></div><h3>Traceable logistics</h3><p>Hazmat-certified freight, real-time tracking and inventory programs that keep your line running without you carrying the storage risk.</p><svg class="const" viewBox="0 0 120 120"><circle cx="60" cy="34" r="4" fill="#14385F"/><circle cx="82.5167" cy="47" r="4" fill="#14385F"/><circle cx="82.5167" cy="73" r="4" fill="#14385F"/><circle cx="60" cy="86" r="4" fill="#14385F"/><circle cx="37.4833" cy="73" r="4" fill="#14385F"/><circle cx="37.4833" cy="47" r="4" fill="#14385F"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec catalog">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="label">Product catalog</span><h2>The chemistry we trade</h2></div>
+      <p class="sh-r">Six families, 3,200+ grades — the materials your formulations and pours depend on. Search by CAS in the portal.</p>
+    </div>
+    <div class="cat-grid reveal">
+      <a class="pcard" href="products.html"><h3>Construction Chemicals</h3><p>Admixtures, accelerators, retarders and grouts for concrete and mortar systems.</p><span class="more">View family <span class="arr">↗</span></span></a>
+      <a class="pcard" href="products.html"><h3>Coatings &amp; Paints</h3><p>Resins, pigments, solvents and additives for protective and decorative finishes.</p><span class="more">View family <span class="arr">↗</span></span></a>
+      <a class="pcard" href="products.html"><h3>Waterproofing</h3><p>Membranes, sealers and crystalline systems for below- and above-grade protection.</p><span class="more">View family <span class="arr">↗</span></span></a>
+      <a class="pcard" href="products.html"><h3>Sealants &amp; Adhesives</h3><p>Silicones, polyurethanes and epoxy systems for structural and joint applications.</p><span class="more">View family <span class="arr">↗</span></span></a>
+      <a class="pcard" href="products.html"><h3>Surfactants &amp; Additives</h3><p>Dispersants, defoamers and rheology modifiers for formulation control.</p><span class="more">View family <span class="arr">↗</span></span></a>
+      <a class="pcard" href="products.html"><h3>Industrial Performance</h3><p>Solvents, intermediates and process chemicals for manufacturing at scale.</p><span class="more">View family <span class="arr">↗</span></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec ind">
+  <svg class="field" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#constel)" opacity=".14"/></svg>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="sec-head reveal">
+      <div><span class="label">Industries served</span><h2>Who we keep supplied — and why it matters</h2></div>
+      <p class="sh-r">Products are <em>what</em> we trade. Below is <em>who</em> we serve, and the outcome we're accountable for in each.</p>
+    </div>
+    <div class="indlist reveal">
+      <div class="iitem"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg><h3>Builders &amp; Contractors</h3><p>Pours that stay on schedule and on strength, project after project.</p></div>
+      <div class="iitem"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v6m0 0-5 9a2 2 0 0 0 2 3h6a2 2 0 0 0 2-3l-5-9Z"/></svg><h3>Coatings &amp; Ink Producers</h3><p>Raw materials consistent enough to formulate around with confidence.</p></div>
+      <div class="iitem"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11Z"/></svg><h3>Waterproofing Specialists</h3><p>Systems that hold under pressure, season after season.</p></div>
+      <div class="iitem"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21V7l8-4 8 4v14M4 21h16M9 21v-4h6v4M8 11h.01M16 11h.01"/></svg><h3>Infrastructure &amp; Public Works</h3><p>Durable chemistry for assets built to outlast the people who pour them.</p></div>
+      <div class="iitem"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V11l5-3v3l5-3v13M19 21V6l-4-3"/></svg><h3>Industrial Manufacturing</h3><p>Process chemistry and solvents delivered reliably to your line.</p></div>
+      <div class="iitem"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><h3>Developers &amp; Asset Owners</h3><p>One accountable supply partner across the whole build.</p></div>
+    </div>
+    <div class="reveal" style="margin-top:34px"><a class="btn btn-line" href="industries.html">How we serve each sector <span class="arr">↗</span></a></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="label" style="color:var(--gold)">Quality &amp; traceability</span>
+        <h2 style="font-size:clamp(1.9rem,3.8vw,2.9rem);margin-top:18px;font-weight:600">Reliable, verifiable, traceable — by design.</h2>
+        <div class="q-list">
+          <div class="q-item"><div><h4>Documented at every step</h4><p>Certificates of analysis, SDS and full lot genealogy available on demand through the customer portal.</p></div></div>
+          <div class="q-item"><div><h4>Audited facilities</h4><p>Warehousing and blending sites operated to recognised environmental and safety standards.</p></div></div>
+          <div class="q-item"><div><h4>Hazmat-trained team</h4><p>Certified handlers and compliant shipping on every regulated consignment.</p></div></div>
+        </div>
+        <div style="margin-top:34px"><a class="btn btn-line-d" href="quality.html">How we guarantee quality <span class="arr">↗</span></a></div>
+      </div>
+      <div class="q-visual reveal">
+        <svg class="field" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#constel)" opacity=".2"/></svg>
+        <div style="position:relative;z-index:2">
+          <span class="label vlabel">The standard</span>
+          <div class="big">Zero compromise<br><em>on what protects you.</em></div>
+          <p class="sub">Your people, your process and your reputation depend on what's in the drum. We treat that as the whole job.</p>
+          <div class="mini">
+            <div><div class="n">100%</div><div class="l">Lots with CoA</div></div>
+            <div><div class="n">24/7</div><div class="l">Support line</div></div>
+            <div><div class="n">&lt;1d</div><div class="l">Quote response</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec careers">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="label" style="color:var(--gold)">Careers</span>
+        <h2 style="margin-top:18px">Build a supply chain the industry relies on</h2>
+        <p class="big">We're chemists, logisticians and problem-solvers who take pride in doing the unglamorous work exceptionally well. If that's you, let's talk.</p>
+        <a class="btn btn-navy" href="careers.html">See careers <span class="arr">↗</span></a>
+      </div>
+      <div class="reveal">
+        <div class="roles" id="rolesListHome" hidden></div>
+        <div class="empty-roles" id="homeRolesEmpty">
+          <h4>Always open to good people</h4>
+          <p>We're not advertising specific roles right now — but if you'd be an asset, introduce yourself.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <svg class="field" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#constel)" opacity=".18"/></svg>
+  <div class="wrap reveal">
+    <svg viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg" style="height:90px;width:auto;display:block;margin:0 auto 26px;"><circle cx="170" cy="13.5" r="4.5" fill="#E5B23A"/><circle cx="201.1769" cy="31.5" r="4.5" fill="#E5B23A"/><circle cx="201.1769" cy="67.5" r="4.5" fill="#E5B23A"/><circle cx="170" cy="85.5" r="4.5" fill="#E5B23A"/><circle cx="138.8231" cy="67.5" r="4.5" fill="#E5B23A"/><circle cx="138.8231" cy="31.5" r="4.5" fill="#E5B23A"/></svg>
+    <span class="label">Let's get you a quote</span>
+    <h2>Tell us what you need.<br><em>We'll handle the rest.</em></h2>
+    <p>Send your specs, volumes and delivery timeline. A specialist responds within one business day — no call centers, no runaround.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="contact.html">Request a quote <span class="arr">↗</span></a>
+      <a class="btn btn-line" href="contact.html">Talk to a specialist</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <svg class="flock" viewBox="0 0 391 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="39.8026" cy="28" r="2.75" fill="#E5B23A"/>
+          <circle cx="58.8551" cy="39" r="2.75" fill="#E5B23A"/>
+          <circle cx="58.8551" cy="61" r="2.75" fill="#E5B23A"/>
+          <circle cx="39.8026" cy="72" r="2.75" fill="#E5B23A"/>
+          <circle cx="20.75" cy="61" r="2.75" fill="#E5B23A"/>
+          <circle cx="20.75" cy="39" r="2.75" fill="#E5B23A"/>
+          <text x="80.66" y="50" font-family="Inter,sans-serif" font-weight="500" font-size="33" letter-spacing="13.2" fill="#FAFAF5" dominant-baseline="middle">HEXACHEM</text>
+        </svg>
+        <p>Specialty chemical trading and distribution — sourced with precision, delivered with proof.</p>
+        <div class="ss"><span class="six-strong">Six Strong</span></div>
+      </div>
+      <div class="fcol"><h5>Products</h5>
+        <a href="products.html">Construction Chemicals</a><a href="products.html">Coatings &amp; Paints</a><a href="products.html">Waterproofing</a><a href="products.html">Sealants &amp; Adhesives</a><a href="products.html">Full catalog</a></div>
+      <div class="fcol"><h5>Company</h5>
+        <a href="about.html">About us</a><a href="quality.html">Quality &amp; traceability</a><a href="industries.html">Industries</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h5>Contact</h5>
+        <a href="contact.html">Request a quote</a><a href="#" data-enquire>Quick enquiry</a><a id="fWa" target="_blank" rel="noopener">WhatsApp us</a><a id="fTel">Call us</a><a id="fMail">Email us</a></div>
+    </div>
+    <div class="footer-legal">
+      <p class="footer-legal-primary">HEXACHEM is a brand of <span data-legal="name">INDEUR INNOVATION SERVICES PRIVATE LIMITED</span>.</p>
+      <p class="footer-legal-copy">© 2026 All rights reserved.&nbsp;&nbsp;·&nbsp;&nbsp;<a href="privacy.html">Privacy</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="terms.html">Terms</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="cookies.html">Cookies</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== floating live-contact widget ===== -->
+<div class="fab-wrap" id="fabWrap">
+  <div class="fab-menu">
+    <a class="fab-item wa" id="waItem" target="_blank" rel="noopener"><span class="lbl">WhatsApp</span><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg></span></a>
+    <a class="fab-item" id="telItem"><span class="lbl">Call</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2.1Z"/></svg></span></a>
+    <a class="fab-item" id="mailItem"><span class="lbl">Email</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span></a>
+    <a class="fab-item" href="#" data-enquire><span class="lbl">Quick enquiry</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></span></a>
+  </div>
+  <button class="fab" id="fabBtn" aria-label="Contact options">
+    <span class="fab-pulse"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.8-5.9A8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5Z"/><circle cx="8.5" cy="11.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="11.5" r="1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="11.5" r="1" fill="currentColor" stroke="none"/></svg>
+  </button>
+</div>
+
+<!-- ===== quick enquiry modal ===== -->
+<div class="moverlay" id="enqModal">
+  <div class="modal">
+    <button class="mclose" id="enqClose" aria-label="Close">&times;</button>
+    <span class="label">Quick enquiry</span>
+    <h3>Send us a message</h3>
+    <p class="msub">Fill this in and choose WhatsApp or email — your message arrives pre-filled, ready to send.</p>
+    <div class="fld"><label>Name</label><input type="text" id="m_name" placeholder="Your name"></div>
+    <div class="fld"><label>Company</label><input type="text" id="m_company" placeholder="Company (optional)"></div>
+    <div class="fld"><label>Product / interest</label><input type="text" id="m_topic" placeholder="e.g. Waterproofing membranes, 10× IBC"></div>
+    <div class="fld"><label>Message</label><textarea id="m_msg" placeholder="What do you need, and when?"></textarea></div>
+    <div class="send-row">
+      <a class="btn btn-wa" id="m_wa" target="_blank" rel="noopener">Send via WhatsApp <span class="arr">↗</span></a>
+      <a class="btn btn-gold" id="m_mail">Send via Email <span class="arr">↗</span></a>
+    </div>
+    <p class="alt-send">or text us on <a id="m_sms">SMS</a></p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   HEXACHEM — CONTACT INFORMATION
+   This is the ONLY file you edit to add, update or modify
+   contact details. Save and re-deploy; every page updates.
+   ============================================================ */
+
+var HX = {
+  display: "+91 00000 00000",        // phone shown to users
+  tel:     "+910000000000",          // tel: link  (no spaces, with country code)
+  wa:      "910000000000",           // WhatsApp: digits only, country code first, NO "+"
+  email:   "business@hexachem.in"    // enquiries inbox
+};
+
+/* Office / warehouse locations shown on the Contact page.
+   Add, edit or remove entries freely. Leave the array empty []
+   to hide the "Where we are" section entirely.
+   Each entry: { label, name, lines: [ ... ] }                      */
+
+var OFFICES = [
+  {
+    label: "Head office",
+    name:  "City",
+    lines: ["Street address", "City, State — PIN", "India"]
+  }
+  // ,{ label:"Warehouse", name:"City Two", lines:["Address line", "City, State — PIN"] }
+];
+
+/* ============================================================
+   LEGAL ENTITY  (Phase 1 — interim, per Developer Brief v1.0)
+   HEXACHEM is the brand. INDEUR is the registered company.
+   This is the SINGLE source for the legal name across the
+   footer, Privacy, Terms and Contact legal block.
+
+   >> AFTER the MCA rename to HEXACHEM PERFORMANCE PRIVATE LIMITED,
+      change `name` below to the new name. Nothing else moves.
+      (CIN stays the same; GSTIN may need a GST update.)
+   ============================================================ */
+var LEGAL_ENTITY = {
+  name:  "INDEUR INNOVATION SERVICES PRIVATE LIMITED",
+  brand: "HEXACHEM"
+};
+
+/* ============================================================
+   HEXACHEM — CERTIFICATIONS & JOB OPENINGS
+   Edit these two lists when you have certifications to show
+   or roles to advertise. Save and re-deploy.
+   ============================================================ */
+
+/* CERTIFICATIONS
+   Add the certifications HEXACHEM actually holds and the
+   trust bar appears automatically on the Home and Quality pages.
+   Leave the array empty []  ->  the trust bar is hidden.
+   Example:
+   var CERTIFICATIONS = ["ISO 9001:2015", "ISO 14001", "REACH", "GHS / CLP", "Responsible Care®"]; */
+
+var CERTIFICATIONS = [];
+
+/* JOB OPENINGS
+   Add current vacancies and they appear on the Careers page
+   (and the Home careers preview). Leave empty []  ->  a
+   "no open roles right now" message is shown instead.
+   Each entry: { title: "...", meta: "Team · Location · Type" }
+   Example:
+   var OPENINGS = [
+     { title: "QC Chemist", meta: "Laboratory · On-site · Full-time" },
+     { title: "Logistics Coordinator", meta: "Operations · On-site · Full-time" }
+   ]; */
+
+var OPENINGS = [];
+
+/* ============================================================
+   HEXACHEM — site behaviour
+   Contact details live in   config.js   (HX, OFFICES)
+   Certifications & openings live in   content.js   (CERTIFICATIONS, OPENINGS)
+   You normally don't need to edit this file.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var cfg = (typeof HX !== "undefined") ? HX : { display:"", tel:"", wa:"", email:"" };
+  var certs = (typeof CERTIFICATIONS !== "undefined") ? CERTIFICATIONS : [];
+  var openings = (typeof OPENINGS !== "undefined") ? OPENINGS : [];
+  var offices = (typeof OFFICES !== "undefined") ? OFFICES : [];
+
+  var val  = function (id) { var e = document.getElementById(id); return e && e.value.trim() ? e.value.trim() : ""; };
+  var line = function (label, v) { return v ? label + ": " + v + "\n" : ""; };
+  var setHref = function (id, href) { var e = document.getElementById(id); if (e) e.href = href; };
+
+  var waURL   = function (text)       { return "https://wa.me/" + cfg.wa + "?text=" + encodeURIComponent(text); };
+  var mailURL = function (subj, body) { return "mailto:" + cfg.email + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body); };
+  var smsURL  = function (text)       { return "sms:" + cfg.tel + "?&body=" + encodeURIComponent(text); };
+
+  /* ---- render certifications (Home + Quality trust bar) ---- */
+  function renderCerts() {
+    var bar = document.getElementById("certBar"), list = document.getElementById("certList");
+    if (!bar || !list) return;
+    if (!certs.length) { bar.hidden = true; return; }
+    bar.hidden = false;
+    list.innerHTML = certs.map(function (c) { return '<span class="cert"><span class="gdot"></span>' + c + "</span>"; }).join("");
+  }
+
+  /* ---- render job openings (Careers + Home preview) ---- */
+  function roleHTML(o) {
+    return '<a class="role" href="contact.html"><div><div class="rt">' + o.title +
+           '</div><div class="rl">' + (o.meta || "") + '</div></div><span class="arr">\u2197</span></a>';
+  }
+  function renderOpenings() {
+    var list = document.getElementById("rolesList"), empty = document.getElementById("rolesEmpty");
+    if (list) {
+      if (openings.length) { list.hidden = false; list.innerHTML = openings.map(roleHTML).join(""); if (empty) empty.hidden = true; }
+      else { list.hidden = true; if (empty) empty.hidden = false; }
+    }
+    var home = document.getElementById("rolesListHome"), homeEmpty = document.getElementById("homeRolesEmpty");
+    if (home) {
+      if (openings.length) { home.hidden = false; home.innerHTML = openings.slice(0, 4).map(roleHTML).join(""); if (homeEmpty) homeEmpty.hidden = true; }
+      else { home.hidden = true; if (homeEmpty) homeEmpty.hidden = false; }
+    }
+    var cnt = document.getElementById("openCount"); if (cnt) cnt.textContent = openings.length;
+  }
+
+  /* ---- render offices (Contact page) ---- */
+  function renderOffices() {
+    var el = document.getElementById("officeList"), sec = document.getElementById("officeSection");
+    if (!el) return;
+    if (!offices.length) { if (sec) sec.hidden = true; return; }
+    el.innerHTML = offices.map(function (o) {
+      return '<div class="office"><div class="oc">' + o.label + '</div><h4>' + o.name +
+             '</h4><p>' + (o.lines || []).join("<br>") + "</p></div>";
+    }).join("");
+  }
+
+  renderCerts(); renderOpenings(); renderOffices();
+
+  /* ---- static contact links (footer + floating button + contact page) ---- */
+  var hello = "Hello HEXACHEM, I'd like to make an enquiry.";
+  var helloMail = "Hello HEXACHEM,\n\nI'd like to make an enquiry about:\n\n";
+  [["waItem", waURL(hello)], ["fWa", waURL(hello)], ["heroWa", waURL(hello)], ["infoWa", waURL(hello)]].forEach(function (p) { setHref(p[0], p[1]); });
+  [["telItem", "tel:" + cfg.tel], ["fTel", "tel:" + cfg.tel], ["infoTel", "tel:" + cfg.tel]].forEach(function (p) { setHref(p[0], p[1]); });
+  [["mailItem", mailURL("Enquiry — HEXACHEM", helloMail)], ["fMail", mailURL("Enquiry — HEXACHEM", helloMail)]].forEach(function (p) { setHref(p[0], p[1]); });
+  var ip = document.getElementById("infoPhone"); if (ip) ip.textContent = cfg.display;
+  var bt = document.getElementById("barTel"); if (bt) bt.href = "tel:" + cfg.tel;
+  var bp = document.getElementById("barPhone"); if (bp) bp.textContent = cfg.display;
+  document.querySelectorAll("[data-mail]").forEach(function (a) { a.href = "mailto:" + cfg.email; a.textContent = cfg.email; });
+
+  /* ---- floating action button ---- */
+  var fw = document.getElementById("fabWrap"), fb = document.getElementById("fabBtn");
+  if (fb) {
+    fb.addEventListener("click", function (e) { e.stopPropagation(); fw.classList.toggle("open"); });
+    document.addEventListener("click", function (e) { if (!fw.contains(e.target)) fw.classList.remove("open"); });
+  }
+
+  /* ---- quick-enquiry modal ---- */
+  var modal = document.getElementById("enqModal"), mClose = document.getElementById("enqClose");
+  function openEnq()  { if (modal) { modal.classList.add("open"); if (fw) fw.classList.remove("open"); } }
+  function closeEnq() { if (modal) modal.classList.remove("open"); }
+  document.querySelectorAll("[data-enquire]").forEach(function (a) { a.addEventListener("click", function (e) { e.preventDefault(); openEnq(); }); });
+  if (mClose) mClose.addEventListener("click", closeEnq);
+  if (modal)  modal.addEventListener("click", function (e) { if (e.target === modal) closeEnq(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeEnq(); });
+
+  function modalText() {
+    var t = "HEXACHEM enquiry\n\n";
+    t += line("Name", val("m_name")); t += line("Company", val("m_company")); t += line("Interest", val("m_topic"));
+    var m = val("m_msg"); if (m) t += "\n" + m + "\n";
+    return t;
+  }
+  function refreshModal() { var t = modalText(); setHref("m_wa", waURL(t)); setHref("m_mail", mailURL("Enquiry — HEXACHEM", t)); setHref("m_sms", smsURL(t)); }
+  ["m_name", "m_company", "m_topic", "m_msg"].forEach(function (id) { var e = document.getElementById(id); if (e) e.addEventListener("input", refreshModal); });
+  refreshModal();
+
+  /* ---- contact-page quote form ---- */
+  var qf = document.getElementById("qform");
+  if (qf) {
+    function quoteText() {
+      var t = "HEXACHEM quote request\n\n";
+      t += line("Name", (val("f_first") + " " + val("f_last")).trim());
+      t += line("Company", val("f_company")); t += line("Email", val("f_email")); t += line("Phone", val("f_phone"));
+      t += line("Delivery country", val("f_country")); t += line("Product family", val("f_family"));
+      t += line("Grade / CAS", val("f_grade")); t += line("Volume", val("f_volume")); t += line("Packaging", val("f_pack"));
+      var d = val("f_details"); if (d) t += "\nDetails:\n" + d + "\n";
+      return t;
+    }
+    function refreshQuote() { var t = quoteText(); setHref("waBtn", waURL(t)); setHref("mailBtn", mailURL("Quote request — HEXACHEM", t)); setHref("smsBtn", smsURL(t)); }
+    qf.querySelectorAll("input,select,textarea").forEach(function (el) { el.addEventListener("input", refreshQuote); });
+    refreshQuote();
+    qf.addEventListener("submit", function (e) {
+      e.preventDefault(); refreshQuote();
+      var s = document.getElementById("qsend"); if (s) { s.style.display = "block"; s.scrollIntoView({ behavior: "smooth", block: "center" }); }
+    });
+  }
+
+  /* ---- shared UI ---- */
+  var burger = document.getElementById("burger"), nl = document.getElementById("navlinks");
+  if (burger) {
+    burger.addEventListener("click", function () { nl.classList.toggle("open"); });
+    nl.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { nl.classList.remove("open"); }); });
+  }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.14 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  var cs = document.querySelectorAll(".chip");
+  var items = document.querySelectorAll(".pitem");
+  var catCount = document.getElementById("catCount");
+  function applyFilter(f) {
+    var shown = 0;
+    items.forEach(function (it) {
+      var ok = (f === "all" || it.getAttribute("data-cat") === f);
+      it.classList.toggle("hide", !ok);
+      if (ok) shown++;
+    });
+    if (catCount) catCount.textContent = shown + (shown === 1 ? " grade" : " grades") + " shown — a representative sample of 3,200+ in stock";
+  }
+  cs.forEach(function (c) {
+    c.addEventListener("click", function () {
+      cs.forEach(function (x) { x.classList.remove("on"); });
+      c.classList.add("on");
+      applyFilter(c.getAttribute("data-filter") || "all");
+    });
+  });
+  if (items.length) applyFilter("all");
+  /* ---- hero stat count-up ---- */
+  (function () {
+    var nums = document.querySelectorAll(".hero-stats .v");
+    if (!nums.length || !("requestAnimationFrame" in window)) return;
+    nums.forEach(function (el) {
+      var raw = el.textContent.trim();
+      var m = raw.match(/^([\d.,]+)(.*)$/);
+      if (!m) return;
+      var hasComma = m[1].indexOf(",") > -1;
+      var dec = (m[1].split(".")[1] || "").length;
+      var target = parseFloat(m[1].replace(/,/g, ""));
+      var suffix = m[2], start = null, dur = 1200;
+      function fmt(n) {
+        var s = dec ? n.toFixed(dec) : Math.round(n).toString();
+        if (hasComma) s = Number(s).toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+        return s + suffix;
+      }
+      function step(ts) {
+        if (!start) start = ts;
+        var prog = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - prog, 3);
+        el.textContent = fmt(target * eased);
+        if (prog < 1) requestAnimationFrame(step);
+      }
+      el.textContent = fmt(0);
+      requestAnimationFrame(step);
+    });
+  })();
+  /* ---- hero cursor parallax ---- */
+  (function () {
+    var hero = document.querySelector(".hero"), stage = document.querySelector(".hero-stage");
+    if (!hero || !stage) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var raf = 0;
+    hero.addEventListener("mousemove", function (e) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var r = hero.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        stage.style.setProperty("--px", (x * 26).toFixed(1) + "px");
+        stage.style.setProperty("--py", (y * 26).toFixed(1) + "px");
+      });
+    });
+    hero.addEventListener("mouseleave", function () {
+      stage.style.setProperty("--px", "0px");
+      stage.style.setProperty("--py", "0px");
+    });
+  })();
+  /* ---- legal entity (brand vs registered company) ---- */
+  (function () {
+    var L = (typeof LEGAL_ENTITY !== "undefined") ? LEGAL_ENTITY : null;
+    if (!L) return;
+    document.querySelectorAll("[data-legal]").forEach(function (el) {
+      var k = el.getAttribute("data-legal");
+      if (L[k]) el.textContent = L[k];
+    });
+  })();
+})();
+
+</script>
+</body></html>
