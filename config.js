@@ -5,11 +5,11 @@
    ============================================================ */
 
 var HX = {
-  display: "+91 00000 00000",        // phone shown to users
-  tel:     "+910000000000",          // tel: link  (no spaces, with country code)
-  wa:      "910000000000",           // WhatsApp: digits only, country code first, NO "+"
+  display: "+91 96324 10710",        // phone shown to users
+  tel:     "+919632410710",          // tel: link  (no spaces, with country code)
+  wa:      "919632410710",           // WhatsApp: digits only, country code first, NO "+"
   email:   "business@hexachem.in",   // enquiries inbox
-  formKey: "",                       // Web3Forms access key -> turns ON auto-send.
+  formKey: "726e869c-4b98-48f7-84eb-3c5139a981bc",  // Web3Forms access key -> turns ON auto-send.
                                      // Free key at https://web3forms.com (destination = your inbox).
                                      // Empty = falls back to WhatsApp/email buttons.
   formCC:  ""                        // Optional 2nd+ recipient(s) for each enquiry.
