@@ -97,8 +97,10 @@
           <div class="fld"><label>Estimated volume</label><input type="text" id="f_volume" placeholder="e.g. 5 × IBC / month"></div>
           <div class="fld"><label>Packaging</label><select id="f_pack"><option value="">No preference</option><option>Drums</option><option>IBC totes</option><option>Bulk</option><option>Bags</option></select></div>
           <div class="fld full"><label>Project details / timeline</label><textarea id="f_details" placeholder="Tell us about the application, required spec, and when you need it."></textarea></div>
+          <input type="text" id="f_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
           <div class="full">
-            <button type="submit" class="btn btn-gold">Review &amp; send enquiry <span class="arr">↗</span></button>
+            <button type="submit" class="btn btn-gold">Send enquiry <span class="arr">↗</span></button>
+            <p id="qstatus" class="qstatus" role="status" aria-live="polite"></p>
             <div id="qsend" style="display:none;margin-top:20px">
               <p class="form-note" style="color:var(--cobalt);margin-bottom:12px">✓ Your enquiry is ready — choose how to send it:</p>
               <div class="send-row">
@@ -107,7 +109,7 @@
               </div>
               <p class="alt-send">or send by <a id="smsBtn">SMS</a></p>
             </div>
-            <p class="form-note">Your enquiry opens pre-filled in WhatsApp or email — it works the moment the site is live, no backend required. To capture and store submissions automatically, connect this form to an email service or CRM.</p>
+            <p class="form-note">On submit, your enquiry is emailed straight to our team. You can also reach us instantly via WhatsApp or email.</p>
           </div>
         </form>
       </div>

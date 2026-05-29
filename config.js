@@ -5,10 +5,17 @@
    ============================================================ */
 
 var HX = {
-  display: "+91 96324 10710",        // phone shown to users
-  tel:     "+919632410710",          // tel: link  (no spaces, with country code)
-  wa:      "919632410710",           // WhatsApp: digits only, country code first, NO "+"
-  email:   "business@hexachem.in"    // enquiries inbox
+  display: "+91 00000 00000",        // phone shown to users
+  tel:     "+910000000000",          // tel: link  (no spaces, with country code)
+  wa:      "910000000000",           // WhatsApp: digits only, country code first, NO "+"
+  email:   "business@hexachem.in",   // enquiries inbox
+  formKey: "",                       // Web3Forms access key -> turns ON auto-send.
+                                     // Free key at https://web3forms.com (destination = your inbox).
+                                     // Empty = falls back to WhatsApp/email buttons.
+  formCC:  ""                        // Optional 2nd+ recipient(s) for each enquiry.
+                                     // Separate multiple with a semicolon:  "a@x.in; b@x.in"
+                                     // NOTE: CC is a Web3Forms PRO feature. Free alternative:
+                                     // point formKey at a forwarding/group address that fans out.
 };
 
 /* Office / warehouse locations shown on the Contact page.
@@ -19,7 +26,7 @@ var HX = {
 var OFFICES = [
   {
     label: "Head office",
-    name:  "Bengaluru",
+    name:  "City",
     lines: ["Street address", "City, State — PIN", "India"]
   }
   // ,{ label:"Warehouse", name:"City Two", lines:["Address line", "City, State — PIN"] }

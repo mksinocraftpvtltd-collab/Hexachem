@@ -115,7 +115,52 @@
     refreshQuote();
     qf.addEventListener("submit", function (e) {
       e.preventDefault(); refreshQuote();
-      var s = document.getElementById("qsend"); if (s) { s.style.display = "block"; s.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      var sBlock = document.getElementById("qsend");
+      var status = document.getElementById("qstatus");
+      var key = (cfg.formKey || "").trim();
+      var showCompose = function () { if (sBlock) { sBlock.style.display = "block"; sBlock.scrollIntoView({ behavior: "smooth", block: "center" }); } };
+
+      // honeypot: if filled, silently treat as handled (likely a bot)
+      if (val("f_hp")) { if (status) { status.className = "qstatus show ok"; status.textContent = "Thank you — your enquiry has been sent."; } return; }
+
+      // no key configured -> fall back to the WhatsApp/email compose buttons
+      if (!key) { showCompose(); return; }
+
+      var name = (val("f_first") + " " + val("f_last")).trim();
+      var payload = {
+        access_key: key,
+        subject: "New quote request — HEXACHEM" + (val("f_company") ? " (" + val("f_company") + ")" : ""),
+        from_name: name || "HEXACHEM website",
+        replyto: val("f_email"),
+        Name: name, Company: val("f_company"), Email: val("f_email"), Phone: val("f_phone"),
+        "Delivery country": val("f_country"), "Product family": val("f_family"),
+        "Grade / CAS": val("f_grade"), Volume: val("f_volume"), Packaging: val("f_pack"),
+        Details: val("f_details")
+      };
+      if ((cfg.formCC || "").trim()) payload.ccemail = cfg.formCC.trim();
+      var btn = qf.querySelector('button[type="submit"]');
+      var lbl = btn ? btn.innerHTML : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Sending\u2026"; }
+      if (status) { status.className = "qstatus show sending"; status.textContent = "Sending your enquiry\u2026"; }
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.success) {
+          if (status) { status.className = "qstatus show ok"; status.textContent = "Thank you, " + (val("f_first") || "there") + " \u2014 your enquiry has been sent. We\u2019ll reply within one business day."; }
+          if (sBlock) sBlock.style.display = "none";
+          qf.reset(); refreshQuote();
+        } else { throw new Error((d && d.message) || "send failed"); }
+      })
+      .catch(function () {
+        if (status) { status.className = "qstatus show err"; status.textContent = "We couldn\u2019t send it automatically \u2014 please use the WhatsApp or email buttons below."; }
+        showCompose();
+      })
+      .then(function () { if (btn) { btn.disabled = false; btn.innerHTML = lbl; } });
     });
   }
 
